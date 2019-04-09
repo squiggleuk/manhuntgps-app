@@ -14,6 +14,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "cordova-ios": "^5.0.0",
+    "cordova-plugin-geolocation": "^4.0.1",
     "cordova-plugin-googlemaps": "git+https://github.com/mapsplugin/cordova-plugin-googlemaps.git#multiple_maps",
     "ios-sim": "^9.0.0-dev.4"
   },
@@ -27,7 +28,8 @@
         "API_KEY_FOR_IOS": "XAIzaSyAow7s2NcWrkRdXOkNV-vipYTJ3kQeyRgI",
         "LOCATION_WHEN_IN_USE_DESCRIPTION": "This app wants to get your location while this app runs only.",
         "LOCATION_ALWAYS_USAGE_DESCRIPTION": "This app wants to get your location always, even this app runs in background."
-      }
+      },
+      "cordova-plugin-geolocation": {}
     },
     "platforms": [
       "ios"
