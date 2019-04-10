@@ -270,15 +270,14 @@ document.addEventListener("deviceready", function () {
         'Timestamp: ' + position.timestamp + '\n'); */
         var data = {};
         data['action'] = 'updateLocation';
-        data['message'] = 'from device';
+        data['playerId'] = playerId;
         data['lat'] = position.coords.latitude;
         data['lng'] = position.coords.longitude;
-        alert(JSON.stringify(data));
+        ws.send(JSON.stringify(data));
     };
 
     function onLocationError(error) {
-      alert('code: ' + error.code + '\n' +
-        'message: ' + error.message + '\n');
+      alert('ERROR: ' + error.code + ' getting location (' + error.message + ')');
     }
 
     var button = document.getElementById("button");
