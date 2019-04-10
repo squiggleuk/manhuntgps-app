@@ -15,6 +15,7 @@ if ("WebSocket" in window) {
     ws.onmessage = function (evt) { 
        //var received_msg = evt.data;
        //alert("Message is received...\n" + evt.data);
+       // https://stackoverflow.com/questions/40538786/googlemaps-api-how-to-remove-multiple-markers
     };
 
     ws.onclose = function() { 

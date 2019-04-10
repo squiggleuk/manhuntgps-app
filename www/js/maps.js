@@ -4,7 +4,7 @@ document.addEventListener("deviceready", function () {
 
     var map = plugin.google.maps.Map.getMap(div, {
       camera: {
-        zoom: 6
+        zoom: 4
       },
       styles: [
         {
@@ -256,8 +256,14 @@ document.addEventListener("deviceready", function () {
       ]
     });
 
-    var my_location = { "lat": 52.422858, "lng": 0.085065 };
+    var my_location = { "lat": 52, "lng": 0 };
     map.setCameraTarget(my_location);
+    var mymarker = map.addMarker({
+      'icon': 'http://maps.gstatic.com/mapfiles/markers2/measle.png', // measle_blue.png
+      'position': {
+        lat: 52,
+        lng: 0
+      }});
 
     var onLocationSuccess = function (position) {
       /*alert('Latitude: ' + position.coords.latitude + '\n' +
@@ -274,6 +280,11 @@ document.addEventListener("deviceready", function () {
         data['lat'] = position.coords.latitude;
         data['lng'] = position.coords.longitude;
         ws.send(JSON.stringify(data));
+        my_location = { "lat": position.coords.latitude, "lng": position.coords.longitude };
+        map.setCameraTarget(my_location);
+        mymarker.setPosition(my_location);
+
+ 
     };
 
     function onLocationError(error) {
@@ -284,6 +295,8 @@ document.addEventListener("deviceready", function () {
     button.addEventListener('click', function () {
       navigator.geolocation.getCurrentPosition(onLocationSuccess, onLocationError);
     });
+
+    var watchID = navigator.geolocation.watchPosition(onLocationSuccess, onLocationError, { timeout: 30000 });
 
   }, false);
 
