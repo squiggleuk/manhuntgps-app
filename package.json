@@ -1,8 +1,8 @@
 {
-  "name": "com.example.hello",
-  "displayName": "HelloWorld",
+  "name": "org.squiggle.manhuntgps",
+  "displayName": "ManHuntGPS",
   "version": "1.0.0",
-  "description": "A sample Apache Cordova application that responds to the deviceready event.",
+  "description": "GPS driven hide and seek",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,13 +10,14 @@
   "keywords": [
     "ecosystem:cordova"
   ],
-  "author": "Apache Cordova Team",
+  "author": "Geoff Kendal",
   "license": "Apache-2.0",
   "dependencies": {
     "cordova-browser": "^6.0.0",
     "cordova-ios": "^5.0.0",
     "cordova-plugin-geolocation": "^4.0.1",
     "cordova-plugin-googlemaps": "git+https://github.com/mapsplugin/cordova-plugin-googlemaps.git#multiple_maps",
+    "ios-deploy": "^1.9.4",
     "ios-sim": "^9.0.0-dev.4"
   },
   "devDependencies": {
@@ -26,7 +27,7 @@
     "plugins": {
       "cordova-plugin-whitelist": {},
       "cordova-plugin-googlemaps": {
-        "API_KEY_FOR_IOS": "xxxxxxxxxxxx",
+        "API_KEY_FOR_IOS": "AIzaSyAow7s2NcWrkRdXOkNV-vipYTJ3kQeyRgI",
         "LOCATION_WHEN_IN_USE_DESCRIPTION": "This app wants to get your location while this app runs only.",
         "LOCATION_ALWAYS_USAGE_DESCRIPTION": "This app wants to get your location always, even this app runs in background."
       },
