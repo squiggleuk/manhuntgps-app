@@ -1,8 +1,11 @@
+var map;
+var markers = {};
+
 document.addEventListener("deviceready", function () {
 
     var div = document.getElementById("map_canvas");
 
-    var map = plugin.google.maps.Map.getMap(div, {
+    map = plugin.google.maps.Map.getMap(div, {
       camera: {
         zoom: 4
       },

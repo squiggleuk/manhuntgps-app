@@ -12,10 +12,29 @@ if ("WebSocket" in window) {
        //alert("Message is sent...\n" + JSON.stringify(data));
     };
 
-    ws.onmessage = function (evt) { 
-       //var received_msg = evt.data;
-       //alert("Message is received...\n" + evt.data);
+    ws.onmessage = function (evt) {
+       var received_msg = JSON.parse(evt.data);
+
+       // Process location update messages from other players
+       if (received_msg.action == 'updateLocation' && received_msg.playerId != playerId) {
+         alert("Update from other player: " + received_msg.playerId);
+         if (typeof markers[received_msg.playerId] === "undefined") { // check if first time on marker
+            markers[received_msg.playerId] = map.addMarker({
+               'icon': 'http://maps.gstatic.com/mapfiles/markers2/measle_blue.png',
+               'position': {
+                 lat: received_msg.lat,
+                 lng: received_msg.lng
+               }});
+         }
+         else {
+            received_location = { "lat": received_msg.lat, "lng": received_msg.lng };
+            markers[received_msg.playerId].setPosition(received_location);
+         }
+
+       }
+
        // https://stackoverflow.com/questions/40538786/googlemaps-api-how-to-remove-multiple-markers
+       // {"action": "updateLocation", "playerId": "GEOFF", "lat": 52.322, "lng": 0.3232}
     };
 
     ws.onclose = function() { 
