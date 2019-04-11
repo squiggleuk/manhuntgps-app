@@ -1,7 +1,7 @@
 // Generate a username for this client
 var names = ['Bob', 'Fred', 'John', 'Jane', 'Bill', 'Paul', 'Ian', 'Barry', 'Tom', 'Dave', 'Sue', 'Terry']; 
 var playerId = names[Math.floor(Math.random() * names.length)] + Math.floor(Math.random() * 100);
-document.getElementById("playerId").innerHTML = playerId;
+document.getElementById("playerId").innerHTML = 'Player: ' + playerId;
 
 if ("WebSocket" in window) {
 
@@ -17,11 +17,11 @@ if ("WebSocket" in window) {
 
        // Process location update messages from other players
        if (received_msg.action == 'updateLocation' && received_msg.playerId != playerId) {
-         alert("Update from other player: " + received_msg.playerId);
+         log_it('Updated location recieved from ' + received_msg.playerId);
          if (typeof markers[received_msg.playerId] === "undefined") { // check if first time on marker
             markers[received_msg.playerId] = map.addMarker({
-               'icon': 'http://maps.gstatic.com/mapfiles/markers2/measle_blue.png',
-               'position': {
+               icon: 'img/dot_red.gif',
+               position: {
                  lat: received_msg.lat,
                  lng: received_msg.lng
                }});
@@ -33,8 +33,6 @@ if ("WebSocket" in window) {
 
        }
 
-       // https://stackoverflow.com/questions/40538786/googlemaps-api-how-to-remove-multiple-markers
-       // {"action": "updateLocation", "playerId": "GEOFF", "lat": 52.322, "lng": 0.3232}
     };
 
     ws.onclose = function() { 

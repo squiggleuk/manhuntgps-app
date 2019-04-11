@@ -262,44 +262,38 @@ document.addEventListener("deviceready", function () {
     var my_location = { "lat": 52, "lng": 0 };
     map.setCameraTarget(my_location);
     var mymarker = map.addMarker({
-      'icon': 'http://maps.gstatic.com/mapfiles/markers2/measle.png', // measle_blue.png
-      'position': {
+      icon: 'img/dot_blue.gif',
+      optimized: false,
+      position: {
         lat: 52,
         lng: 0
       }});
 
-    var onLocationSuccess = function (position) {
-      /*alert('Latitude: ' + position.coords.latitude + '\n' +
-        'Longitude: ' + position.coords.longitude + '\n' +
-        'Altitude: ' + position.coords.altitude + '\n' +
-        'Accuracy: ' + position.coords.accuracy + '\n' +
-        'Altitude Accuracy: ' + position.coords.altitudeAccuracy + '\n' +
-        'Heading: ' + position.coords.heading + '\n' +
-        'Speed: ' + position.coords.speed + '\n' +
-        'Timestamp: ' + position.timestamp + '\n'); */
+    var onLocationSuccess = function (position) { // We got a GPS update from our own phones GPS
         var data = {};
         data['action'] = 'updateLocation';
         data['playerId'] = playerId;
         data['lat'] = position.coords.latitude;
         data['lng'] = position.coords.longitude;
         ws.send(JSON.stringify(data));
+        log_it('Sent new location to server');
         my_location = { "lat": position.coords.latitude, "lng": position.coords.longitude };
-        map.setCameraTarget(my_location);
         mymarker.setPosition(my_location);
-
- 
     };
 
     function onLocationError(error) {
-      alert('ERROR: ' + error.code + ' getting location (' + error.message + ')');
+      log_it('Geolocator error ' + error.code + ' (' + error.message + ')');
     }
 
     var button = document.getElementById("button");
     button.addEventListener('click', function () {
       navigator.geolocation.getCurrentPosition(onLocationSuccess, onLocationError);
+      map.setCameraTarget(my_location);
     });
 
     var watchID = navigator.geolocation.watchPosition(onLocationSuccess, onLocationError, { timeout: 30000 });
+
+    
 
   }, false);
 

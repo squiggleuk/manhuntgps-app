@@ -40,6 +40,11 @@ h1 {
   height: 80%;
 }
 
+#logOutput {
+  overflow: hidden;
+  height: 10%;
+}
+
 button {
   padding: 0.5em;
   margin: 0.5em;
