@@ -20,7 +20,9 @@ if ("WebSocket" in window) {
          log_it('Updated location recieved from ' + received_msg.playerId);
          if (typeof markers[received_msg.playerId] === "undefined") { // check if first time on marker
             markers[received_msg.playerId] = map.addMarker({
+               optimized: false,
                icon: 'img/dot_red.gif',
+               title: received_msg.playerId,
                position: {
                  lat: received_msg.lat,
                  lng: received_msg.lng

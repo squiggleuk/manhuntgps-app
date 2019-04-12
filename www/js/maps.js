@@ -7,7 +7,7 @@ document.addEventListener("deviceready", function () {
 
     map = plugin.google.maps.Map.getMap(div, {
       camera: {
-        zoom: 4
+        zoom: 1
       },
       styles: [
         {
@@ -259,15 +259,8 @@ document.addEventListener("deviceready", function () {
       ]
     });
 
-    var my_location = { "lat": 52, "lng": 0 };
-    map.setCameraTarget(my_location);
-    var mymarker = map.addMarker({
-      icon: 'img/dot_blue.gif',
-      optimized: false,
-      position: {
-        lat: 52,
-        lng: 0
-      }});
+
+    var mymarker;
 
     var onLocationSuccess = function (position) { // We got a GPS update from our own phones GPS
         var data = {};
@@ -278,7 +271,26 @@ document.addEventListener("deviceready", function () {
         ws.send(JSON.stringify(data));
         log_it('Sent new location to server');
         my_location = { "lat": position.coords.latitude, "lng": position.coords.longitude };
-        mymarker.setPosition(my_location);
+
+        if (typeof mymarker === "undefined") {
+          mymarker = map.addMarker({
+            optimized: false,
+            icon: 'img/dot_blue.gif',
+            title: playerId,
+            position: {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            }});
+            //map.setCameraTarget(my_location);
+            map.animateCamera({
+              target: my_location,
+              zoom: 13,
+              duration: 3000
+            });
+        }
+        else {
+          mymarker.setPosition(my_location);
+        }
     };
 
     function onLocationError(error) {
