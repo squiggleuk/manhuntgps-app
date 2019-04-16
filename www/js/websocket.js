@@ -1,8 +1,3 @@
-// Generate a username for this client
-var names = ['Bob', 'Fred', 'John', 'Jane', 'Bill', 'Paul', 'Ian', 'Barry', 'Tom', 'Dave', 'Sue', 'Terry']; 
-var playerId = names[Math.floor(Math.random() * names.length)] + Math.floor(Math.random() * 100);
-document.getElementById("playerId").innerHTML = 'Player: ' + playerId;
-
 if ("WebSocket" in window) {
 
     var ws = new WebSocket("wss://6vj1exghl3.execute-api.eu-west-1.amazonaws.com/dev");
@@ -20,7 +15,6 @@ if ("WebSocket" in window) {
          log_it('Updated location recieved from ' + received_msg.playerId);
          if (typeof markers[received_msg.playerId] === "undefined") { // check if first time on marker
             markers[received_msg.playerId] = map.addMarker({
-               optimized: false,
                icon: 'img/dot_red.gif',
                title: received_msg.playerId,
                position: {
@@ -38,7 +32,7 @@ if ("WebSocket" in window) {
     };
 
     ws.onclose = function() { 
-       alert("ERROR: Connection to server was lost!"); 
+       alert("ERROR: Connection to websocket was lost!"); 
     };
 
  }
